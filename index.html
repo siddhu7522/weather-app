@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <script src="./app.js"></script>
+    <title>Weather app</title>
+</head>
+<body>
+    <div class="container">
+        <h1>Weather app</h1>
+        <input type="text" class="input"placeholder="Enter a city"><br>
+        <button class="btn" type='submit' value="submit">Submit</button>
+        <div class="show__data">
+            
+        </div>
+    </div>
+    <Script>
+        //get values
+    const input=document.querySelector(".input");
+const button=document.querySelector(".btn");
+const showData=document.querySelector(".show__data")
+
+
+
+//get api
+const api_key="beea466e52220ceec7e07eb33fa094c0"
+
+//add event listener
+button.addEventListener("click",getData);
+function getData(){
+    const cityInput=input.value;
+    //fetch through api
+    fetch(`http://api.openweathermap.org/data/2.5/weather?q=${cityInput}&units=metric&APPID=${api_key}`)
+     .then(res=>res.json())
+     .then(data=>{
+        //console.log(data)
+        input.value=" "
+        showData.innerHTML=`
+        <ul>
+            <li class="desc">${data.weather[0].description} </li>
+            <li class="city">${data.name}</li>
+            <li class="temp">${data.main.temp}</li>
+               
+            </ul>
+        `
+        
+     });
+
+}
+
+
+
+
+</Script>
+
+</body>
+</html>
